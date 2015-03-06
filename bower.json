@@ -8,7 +8,7 @@
   "description": "Polyfills supporting CSS property word-break: keep-all; for CJK ( Chinese, Japanese, Korean )",
   "main": "dist/enterplz.js",
   "moduleType": [
-    "amd"
+    "umd"
   ],
   "keywords": [
     "Polyfill",
