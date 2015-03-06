@@ -5,7 +5,7 @@
   "authors": [
     "momamene <momamene@gmail.com>"
   ],
-  "description": "Polyfills supporting CSS property word-break: keep-all; for CJK ( Chinese, Japanese, Korean )",
+  "description": "Supporting word break for CJK ( Chinese, Japanese, Korean ) in browsers",
   "main": "dist/enterplz.js",
   "moduleType": [
     "umd"
