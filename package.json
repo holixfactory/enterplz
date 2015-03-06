@@ -1,0 +1,32 @@
+{
+  "name": "enterplz",
+  "version": "0.0.0",
+  "description": "Polyfills supporting CSS property word-break: keep-all; for CJK ( Chinese, Japanese, Korean )",
+  "main": "main.js",
+  "dependencies": {
+    "babel": "~4.6.6",
+    "babelify": "~5.0.4",
+    "gulp": "~3.8.11",
+    "gulp-babel": "~4.0.0",
+    "es6-shim": "~0.27.1",
+    "vinyl-source-stream": "~1.0.0",
+    "gulp-es6-module-transpiler": "~0.2.1",
+    "gulp-browserify": "~0.5.1"
+  },
+  "devDependencies": {
+    "browserify": "~9.0.3",
+    "gulp-concat": "~2.5.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/momamene/enterplz.git"
+  },
+  "author": "",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/momamene/enterplz/issues"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "enterplz",
+  "version": "0.0.1",
+  "homepage": "https://github.com/momamene/enterplz",
+  "authors": [
+    "momamene <momamene@gmail.com>"
+  ],
+  "description": "Polyfills supporting CSS property word-break: keep-all; for CJK ( Chinese, Japanese, Korean )",
+  "main": "main.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "Polyfill",
+    "word-break",
+    "keep-all",
+    "CJK",
+    "Korean"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
