@@ -36,28 +36,40 @@ let makeBlank = () => document.createTextNode(' ')
 let traverse = function(parent) {
   var [textNodes, elNodes] = _splitNodes(parent.childNodes)
   for (var child of textNodes) {
-    console.log(child.textContent)
-    for (var text of child.textContent.split(/\s/).filter((t) => t !== "")) {
+    let words = child.textContent.split(/\s/)
+                                 .filter((t) => t.trim() !== "")
+    for (var text of words) {
       var word = makeWord(text)
       var blank = makeBlank()
       parent.insertBefore(word, child)
       parent.insertBefore(blank, child)
     }
-    child.remove()
+    if (words.length > 0) {
+      child.remove()
+    }
   }
   for (var child of elNodes) {
     traverse(child)
   }
 }
 
-
 export default {
   run: function(options) {
-    options = options || {};
+    options = options || {}
     let rootNode = options.include || document.body
-    if (isIE) { rootNode.style.wordBreak = 'keep-all'; }
+    if (isIE) { rootNode.style.wordBreak = 'keep-all' }
     else {
-      traverse(rootNode);
+      traverse(rootNode)
+      if (options.follow) {
+        (new MutationObserver((mutations) => {
+          traverse(rootNode)
+        })).observe(rootNode, {
+          subtree: true,
+          childList: true,
+          characterData: true,
+          attributes: false
+        })
+      }
     }
   }
 }
