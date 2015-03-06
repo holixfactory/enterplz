@@ -1,7 +1,7 @@
 {
   "name": "enterplz",
   "version": "0.1.0",
-  "description": "Polyfills supporting CSS property word-break: keep-all; for CJK ( Chinese, Japanese, Korean )",
+  "description": "Supporting word break for CJK ( Chinese, Japanese, Korean ) in browsers",
   "main": "main.js",
   "dependencies": {
     "babel": "~4.6.6",
