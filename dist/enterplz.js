@@ -46,9 +46,10 @@
     var elNodes = _splitNodes32[1];
 
     var isText = node.nodeType === 3;
+    var isComment = node.nodeType === 8;
     if (isText) {
       textNodes.push(node);
-    } else {
+    } else if (!isComment) {
       var isIgnored = node.getAttribute("data-no-enterplz") === "";
       var isPreformatted = node.nodeName === "PRE";
       var isAlreadyDone = node.getAttribute("data-word") === "";

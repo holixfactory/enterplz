@@ -10,9 +10,10 @@ let _splitNodes = function([node, ...remains]) {
   }
   var [textNodes, elNodes] = _splitNodes(remains)
   let isText = node.nodeType === 3
+  let isComment = node.nodeType === 8
   if ( isText ) {
     textNodes.push(node)
-  } else {
+  } else if (!isComment) {
     let isIgnored = node.getAttribute('data-no-enterplz') === ''
     let isPreformatted = node.nodeName === 'PRE'
     let isAlreadyDone = node.getAttribute('data-word') === ''
