@@ -72,6 +72,8 @@
     return document.createTextNode(" ");
   };
 
+  var trackAll = undefined; // It defines when run
+
   var traverse = (function (_traverse) {
     var _traverseWrapper = function traverse(_x) {
       return _traverse.apply(this, arguments);
@@ -89,64 +91,68 @@
 
     var textNodes = _splitNodes22[0];
     var elNodes = _splitNodes22[1];
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
 
-    try {
-      for (var _iterator = textNodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var child = _step.value;
+    var isTargeted = trackAll || parent.getAttribute("data-enterplz") === "";
 
-        var words = child.textContent.split(/\s/).filter(function (t) {
-          return t.trim() !== "";
-        });
-        var _iteratorNormalCompletion2 = true;
-        var _didIteratorError2 = false;
-        var _iteratorError2 = undefined;
+    if (isTargeted) {
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
 
-        try {
-          for (var _iterator2 = words[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var text = _step2.value;
-
-            var word = makeWord(text);
-            var blank = makeBlank();
-            parent.insertBefore(word, child);
-            parent.insertBefore(blank, child);
-          }
-        } catch (err) {
-          _didIteratorError2 = true;
-          _iteratorError2 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion2 && _iterator2["return"]) {
-              _iterator2["return"]();
-            }
-          } finally {
-            if (_didIteratorError2) {
-              throw _iteratorError2;
-            }
-          }
-        }
-
-        if (words.length > 0) {
-          child.remove();
-        }
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
       try {
-        if (!_iteratorNormalCompletion && _iterator["return"]) {
-          _iterator["return"]();
+        for (var _iterator = textNodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var child = _step.value;
+
+          var words = child.textContent.split(/\s/).filter(function (t) {
+            return t.trim() !== "";
+          });
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
+
+          try {
+            for (var _iterator2 = words[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var text = _step2.value;
+
+              var word = makeWord(text);
+              var blank = makeBlank();
+              parent.insertBefore(word, child);
+              parent.insertBefore(blank, child);
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2["return"]) {
+                _iterator2["return"]();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
+            }
+          }
+
+          if (words.length > 0) {
+            child.remove();
+          }
         }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
       } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"]) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
         }
       }
     }
-
     var _iteratorNormalCompletion3 = true;
     var _didIteratorError3 = false;
     var _iteratorError3 = undefined;
@@ -155,6 +161,9 @@
       for (var _iterator3 = elNodes[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
         var child = _step3.value;
 
+        if (parent.getAttribute("data-enterplz") === "") {
+          child.setAttribute("data-enterplz", "");
+        }
         traverse(child);
       }
     } catch (err) {
@@ -176,7 +185,8 @@
   module.exports = {
     run: function run(options) {
       options = options || {};
-      var rootNode = options.include || document.body;
+      var rootNode = document.body;
+      trackAll = options.trackAll || false;
       if (isIE) {
         rootNode.style.wordBreak = "keep-all";
       } else {
