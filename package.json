@@ -4,12 +4,12 @@
   "description": "Supporting word break for CJK ( Chinese, Japanese, Korean ) in browsers",
   "main": "main.js",
   "dependencies": {
-    "babel": "~4.6.6",
+    "babel": "~5.2.13",
     "gulp": "~3.8.11",
-    "gulp-babel": "~4.0.0",
+    "gulp-babel": "~5.1.0",
+    "array.from": "~0.2.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

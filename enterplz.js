@@ -1,3 +1,14 @@
+/**
+* @license MIT, GPL, do whatever you want
+* @requires polyfill: Array.prototype.slice fix {@link https://gist.github.com/brettz9/6093105}
+*/
+if (!window.Array.from) {
+    window.Array.from = function (object) {
+        'use strict';
+        return [].slice.call(object);
+    };
+}
+
 let isIE = (() => {
   var isIE11 = navigator.userAgent.indexOf(".NET CLR") > -1;
   var isIE11orLess = isIE11 || navigator.appVersion.indexOf("MSIE") != -1;
@@ -68,11 +79,12 @@ export default {
   run: function(options) {
     options = options || {}
     let rootNode = document.body
-    trackAll = options.trackAll || false
+    let trackAll = options.trackAll || false
+    let follow = options.follow || true
     if (isIE) { rootNode.style.wordBreak = 'keep-all' }
     else {
       traverse(rootNode)
-        if (options.follow) {
+        if (follow) {
           (new MutationObserver((mutations) => {
             traverse(rootNode)
           })).observe(rootNode, {

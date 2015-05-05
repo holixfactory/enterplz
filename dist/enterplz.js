@@ -1,15 +1,32 @@
-(function (factory) {
+(function (global, factory) {
   if (typeof define === "function" && define.amd) {
     define(["exports", "module"], factory);
   } else if (typeof exports !== "undefined" && typeof module !== "undefined") {
     factory(exports, module);
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory(mod.exports, mod);
+    global.enterplz = mod.exports;
   }
-})(function (exports, module) {
+})(this, function (exports, module) {
   "use strict";
 
-  var _slicedToArray = function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { var _arr = []; for (var _iterator = arr[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) { _arr.push(_step.value); if (i && _arr.length === i) break; } return _arr; } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } };
+  function _slicedToArray(arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }
 
-  var _toArray = function (arr) { return Array.isArray(arr) ? arr : Array.from(arr); };
+  function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
+
+  /**
+  * @license MIT, GPL, do whatever you want
+  * @requires polyfill: Array.prototype.slice fix {@link https://gist.github.com/brettz9/6093105}
+  */
+  if (!window.Array.from) {
+    window.Array.from = function (object) {
+      "use strict";
+      return [].slice.call(object);
+    };
+  }
 
   var isIE = (function () {
     var isIE11 = navigator.userAgent.indexOf(".NET CLR") > -1;
@@ -17,17 +34,7 @@
     return isIE11orLess;
   })();
 
-  var _splitNodes = (function (_splitNodes2) {
-    var _splitNodesWrapper = function _splitNodes(_x) {
-      return _splitNodes2.apply(this, arguments);
-    };
-
-    _splitNodesWrapper.toString = function () {
-      return _splitNodes2.toString();
-    };
-
-    return _splitNodesWrapper;
-  })(function (_ref) {
+  var _splitNodes = function _splitNodes(_ref) {
     var _ref2 = _toArray(_ref);
 
     var node = _ref2[0];
@@ -38,12 +45,12 @@
       return [[], []];
     }
 
-    var _splitNodes3 = _splitNodes(remains);
+    var _splitNodes2 = _splitNodes(remains);
 
-    var _splitNodes32 = _slicedToArray(_splitNodes3, 2);
+    var _splitNodes22 = _slicedToArray(_splitNodes2, 2);
 
-    var textNodes = _splitNodes32[0];
-    var elNodes = _splitNodes32[1];
+    var textNodes = _splitNodes22[0];
+    var elNodes = _splitNodes22[1];
 
     var isText = node.nodeType === 3;
     var isComment = node.nodeType === 8;
@@ -58,9 +65,9 @@
       }
     }
     return [textNodes, elNodes];
-  });
+  };
 
-  var makeWord = function (text) {
+  var makeWord = function makeWord(text) {
     var span = document.createElement("span");
     span.style.whiteSpace = "nowrap";
     span.setAttribute("data-word", "");
@@ -68,29 +75,19 @@
     return span;
   };
 
-  var makeBlank = function () {
+  var makeBlank = function makeBlank() {
     return document.createTextNode(" ");
   };
 
   var trackAll = undefined; // It defines when run
 
-  var traverse = (function (_traverse) {
-    var _traverseWrapper = function traverse(_x) {
-      return _traverse.apply(this, arguments);
-    };
+  var traverse = function traverse(parent) {
+    var _splitNodes3 = _splitNodes(parent.childNodes);
 
-    _traverseWrapper.toString = function () {
-      return _traverse.toString();
-    };
+    var _splitNodes32 = _slicedToArray(_splitNodes3, 2);
 
-    return _traverseWrapper;
-  })(function (parent) {
-    var _splitNodes2 = _splitNodes(parent.childNodes);
-
-    var _splitNodes22 = _slicedToArray(_splitNodes2, 2);
-
-    var textNodes = _splitNodes22[0];
-    var elNodes = _splitNodes22[1];
+    var textNodes = _splitNodes32[0];
+    var elNodes = _splitNodes32[1];
 
     var isTargeted = trackAll || parent.getAttribute("data-enterplz") === "";
 
@@ -180,18 +177,19 @@
         }
       }
     }
-  });
+  };
 
   module.exports = {
     run: function run(options) {
       options = options || {};
       var rootNode = document.body;
-      trackAll = options.trackAll || false;
+      var trackAll = options.trackAll || false;
+      var follow = options.follow || true;
       if (isIE) {
         rootNode.style.wordBreak = "keep-all";
       } else {
         traverse(rootNode);
-        if (options.follow) {
+        if (follow) {
           new MutationObserver(function (mutations) {
             traverse(rootNode);
           }).observe(rootNode, {
