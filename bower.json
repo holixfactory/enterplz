@@ -24,5 +24,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "babel-polyfill": "~0.0.1"
+  }
 }
