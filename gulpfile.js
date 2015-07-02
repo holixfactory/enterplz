@@ -1,6 +1,5 @@
 var gulp = require("gulp");
 var babel = require("gulp-babel");
-var babelify = require('babelify');
 
 gulp.task("default", function () {
   return gulp.src(["enterplz.js"])
