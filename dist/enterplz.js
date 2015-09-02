@@ -1,7 +1,7 @@
 (function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "module"], factory);
-  } else if (typeof exports !== "undefined" && typeof module !== "undefined") {
+  if (typeof define === 'function' && define.amd) {
+    define(['exports', 'module'], factory);
+  } else if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
     factory(exports, module);
   } else {
     var mod = {
@@ -15,16 +15,14 @@
   * @license MIT, GPL, do whatever you want
   */
 
-  "use strict";
+  'use strict';
 
-  var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
+  var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
 
   function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
 
   var isIE = (function () {
-    var isIE11 = navigator.userAgent.indexOf(".NET CLR") > -1;
-    var isIE11orLess = isIE11 || navigator.appVersion.indexOf("MSIE") != -1;
-    return isIE11orLess;
+    return navigator.userAgent.indexOf('Trident') || navigator.userAgent.indexOf('MSIE');
   })();
 
   var _splitNodes = function _splitNodes(_ref) {
@@ -50,9 +48,9 @@
     if (isText) {
       textNodes.push(node);
     } else if (!isComment) {
-      var isIgnored = node.getAttribute("data-no-enterplz") === "";
-      var isPreformatted = node.nodeName === "PRE";
-      var isAlreadyDone = node.getAttribute("data-word") === "";
+      var isIgnored = node.getAttribute('data-no-enterplz') === '';
+      var isPreformatted = node.nodeName === 'PRE';
+      var isAlreadyDone = node.getAttribute('data-word') === '';
       if (!isIgnored && !isPreformatted && !isAlreadyDone) {
         elNodes.push(node);
       }
@@ -61,15 +59,15 @@
   };
 
   var makeWord = function makeWord(text) {
-    var span = document.createElement("span");
-    span.style.whiteSpace = "nowrap";
-    span.setAttribute("data-word", "");
+    var span = document.createElement('span');
+    span.style.whiteSpace = 'nowrap';
+    span.setAttribute('data-word', '');
     span.appendChild(document.createTextNode(text));
     return span;
   };
 
   var makeBlank = function makeBlank() {
-    return document.createTextNode(" ");
+    return document.createTextNode(' ');
   };
 
   var trackAll = undefined; // It defines when run
@@ -82,7 +80,7 @@
     var textNodes = _splitNodes32[0];
     var elNodes = _splitNodes32[1];
 
-    var isTargeted = trackAll || parent.getAttribute("data-enterplz") === "";
+    var isTargeted = trackAll || parent.getAttribute('data-enterplz') === '';
 
     if (isTargeted) {
       var _iteratorNormalCompletion = true;
@@ -114,8 +112,8 @@
             _iteratorError2 = err;
           } finally {
             try {
-              if (!_iteratorNormalCompletion2 && _iterator2["return"]) {
-                _iterator2["return"]();
+              if (!_iteratorNormalCompletion2 && _iterator2['return']) {
+                _iterator2['return']();
               }
             } finally {
               if (_didIteratorError2) {
@@ -133,8 +131,8 @@
         _iteratorError = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion && _iterator["return"]) {
-            _iterator["return"]();
+          if (!_iteratorNormalCompletion && _iterator['return']) {
+            _iterator['return']();
           }
         } finally {
           if (_didIteratorError) {
@@ -151,8 +149,8 @@
       for (var _iterator3 = elNodes[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
         var child = _step3.value;
 
-        if (parent.getAttribute("data-enterplz") === "") {
-          child.setAttribute("data-enterplz", "");
+        if (parent.getAttribute('data-enterplz') === '') {
+          child.setAttribute('data-enterplz', '');
         }
         traverse(child);
       }
@@ -161,8 +159,8 @@
       _iteratorError3 = err;
     } finally {
       try {
-        if (!_iteratorNormalCompletion3 && _iterator3["return"]) {
-          _iterator3["return"]();
+        if (!_iteratorNormalCompletion3 && _iterator3['return']) {
+          _iterator3['return']();
         }
       } finally {
         if (_didIteratorError3) {
@@ -179,7 +177,7 @@
       var trackAll = options.trackAll || false;
       var follow = options.follow || true;
       if (isIE) {
-        rootNode.style.wordBreak = "keep-all";
+        rootNode.style.wordBreak = 'keep-all';
       } else {
         traverse(rootNode);
         if (follow) {
