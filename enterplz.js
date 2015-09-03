@@ -3,9 +3,7 @@
 */
 
 let isIE = (() => {
-  var isIE11 = navigator.userAgent.indexOf(".NET CLR") > -1;
-  var isIE11orLess = isIE11 || navigator.appVersion.indexOf("MSIE") != -1;
-  return isIE11orLess;
+  return navigator.userAgent.indexOf('Trident') || navigator.userAgent.indexOf('MSIE');
 })()
 
   let _splitNodes = function([node, ...remains]) {
