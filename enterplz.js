@@ -72,7 +72,7 @@ export default {
     let rootNode = document.body
     let trackAll = options.trackAll || false
     let follow = options.follow || true
-    if (isIE) { rootNode.style.wordBreak = 'keep-all' }
+    if (isIE > 0) { rootNode.style.wordBreak = 'keep-all' }
     else {
       traverse(rootNode)
         if (follow) {

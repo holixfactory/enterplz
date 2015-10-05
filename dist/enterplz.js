@@ -176,7 +176,7 @@
       var rootNode = document.body;
       var trackAll = options.trackAll || false;
       var follow = options.follow || true;
-      if (isIE) {
+      if (isIE > 0) {
         rootNode.style.wordBreak = 'keep-all';
       } else {
         traverse(rootNode);
