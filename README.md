@@ -12,11 +12,15 @@ Using [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationO
 # Usage
 Just run like this.
 ```javascript
-enterplz.run({
-  include: documnent.body, // root DOM node
-  follow: true // Wheather tracking dynamic HTML or not
-});
+enterplz.run();
 ```
+And put `data-enterplz` to any DOM you want.
+```html
+<div class="title" data-enterplz>
+에듀캐스트에서는 누구나 가르칠 수 있고 무엇이든 배울 수 있습니다
+</div>
+```
+then **enterplz** find DOM containing data-enterplz and make inner words never wrap to the next line.
 
 # Prerequisite
 This library is witten in ECMAScript 6 then transpiled to ES5 to be used in browsers ( Chrome, Firefox, Safari, ... )
