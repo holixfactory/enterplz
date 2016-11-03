@@ -1,6 +1,6 @@
 {
   "name": "enterplz",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Supporting word break for CJK ( Chinese, Japanese, Korean ) in browsers",
   "main": "main.js",
   "dependencies": {
